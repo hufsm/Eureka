@@ -1023,7 +1023,8 @@ extension FormViewController {
         guard let currentIndexPath = tableView?.indexPath(for: currentCell) else { assertionFailure(); return }
         guard let nextRow = nextRow(for: form[currentIndexPath], withDirection: direction) else { return }
         if nextRow.baseCell.cellCanBecomeFirstResponder() {
-            tableView?.scrollToRow(at: nextRow.indexPath!, at: .none, animated: animateScroll)
+            /// We changed at:.none to at:.bottom because it was not always possible to use the arrow keys to go up
+            tableView?.scrollToRow(at: nextRow.indexPath!, at: .bottom, animated: animateScroll)
             cellToNavigateTo = nextRow.baseCell
             nextRow.baseCell.cellBecomeFirstResponder(withDirection: direction)
         }
